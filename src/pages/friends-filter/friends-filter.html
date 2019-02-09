@@ -1,0 +1,31 @@
+<ion-header>
+
+  <ion-navbar color="white">
+    <ion-buttons start>
+      <button ion-button (click)="cancel()">Cancel</button>
+    </ion-buttons>
+    <ion-title>Filter</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="apply()">Apply</button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-list no-lines>
+    <ion-item>
+      <ion-label stacked>Location (Area)</ion-label>
+      <ion-input type="text" id="searchBox"  [(ngModel)]="area" (input)="search($event)"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>
+        Age Range ({{age.lower}} - {{age.upper}})
+      </ion-label>
+      <ion-range [(ngModel)]="age" dualKnobs="true" min="0" max="100">
+        <ion-label range-left>0</ion-label>
+        <ion-label range-right>100</ion-label>
+      </ion-range>
+    </ion-item>
+  </ion-list>
+</ion-content>

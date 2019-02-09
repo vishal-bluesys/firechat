@@ -1,0 +1,18 @@
+page-login {
+
+    ion-list, ion-item{
+      background:transparent
+    }
+    .app-icon{
+      font-size:50px;
+      color: $primary;
+      text-align: center;
+    }
+    .text-input-ios{
+      width: calc(100% - 8px);
+      border: 1px solid #eaeaea;
+      padding: 10px;
+      background: #f3f3f3;
+    }
+  }
+  

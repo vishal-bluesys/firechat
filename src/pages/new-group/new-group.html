@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-navbar color="white">
+    <ion-title>New Group</ion-title>
+    <ion-buttons end>
+      <button ion-button tappable (click)="done()" [disabled]="!groupForm.valid || group.img == '' || groupMembers.length <= 1">Done</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div *ngIf="group">
+      <form [formGroup]="groupForm">
+      
+      <ion-row style="background: #f3f3f3">
+        <ion-col col-3 style="text-align:center; margin-top: 4rem;">
+          <img src="{{group.img}}" *ngIf="group.img != ''" tappable (click)="setGroupPhoto()" onError="this.src='./assets/images/default-group.png'" />
+          <img style="border-radius: 100%; width: 100px; height: 100px;" src="{{group.img}}" onError="this.src='./assets/images/default-group.png'" *ngIf="group.img == ''" tappable (click)="setGroupPhoto()" />
+        </ion-col>
+        <ion-col col-9>
+          <ion-list no-lines style="margin:0;">
+            <ion-item>
+              <ion-label stacked>Group Name</ion-label>
+              <ion-input type="text" formControlName="name" placeholder="Name of Group"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label stacked>Description</ion-label>
+              <ion-textarea rows="3" formControlName="description" placeholder="Describe this Group"></ion-textarea>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <div *ngIf="groupMembers" >
+        <ion-list-header>
+          Group Members ({{groupMembers.length}})
+        </ion-list-header>
+        <ion-list no-lines>
+        <ion-item  *ngFor="let member of groupMembers">
+          <ion-avatar item-left>
+            <img src="{{member.img}}" onError="this.src='./assets/images/default-dp.png'"/>
+          </ion-avatar>
+          <h2>{{member.name}}</h2>
+          <button color="cancelrequest" ion-button outline item-right (click)="removeFromGroup(member)">Remove</button>
+        </ion-item>
+      </ion-list>
+      </div>
+      </form>
+
+    <ion-list-header>
+      Add New Members
+    </ion-list-header>
+    <div class="form">
+      <!-- No friends to create a group. -->
+      <div class="empty" *ngIf="friends && friends.length == 0">
+        <p>You have no friends right now to start a group conversation.</p>
+      </div>
+      <!-- Show friends to add/remove to group. -->
+      <ion-list class="avatar-list" *ngIf="friends && friends.length > 0">
+        <ion-searchbar [(ngModel)]="searchFriend" placeholder="Search for friend or username" showCancelButton="true" cancelButtonText="Done"></ion-searchbar>
+        <ion-item *ngFor="let friend of friends | friendFilter:searchFriend" no-lines tappable (click)="addOrRemoveFromGroup(friend)">
+          
+          <button ion-button outline color="acceptrequest" item-right tappable (click)="addToGroup(friend); $event.stopPropagation();" *ngIf="!inGroup(friend)">Add</button>
+          <button ion-button outline color="cancelrequest" item-right tappable (click)="removeFromGroup(friend); $event.stopPropagation();" *ngIf="inGroup(friend)">Remove</button>
+          
+          <ion-avatar item-left>
+            <img src="{{friend.img}}" onError="this.src='./assets/images/default-dp.png'">
+          </ion-avatar>
+          <h2>{{friend.name}}</h2>
+          <p>@{{friend.username}}</p>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+</ion-content>

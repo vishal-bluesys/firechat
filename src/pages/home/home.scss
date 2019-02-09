@@ -1,0 +1,18 @@
+page-home{
+    .text-input, .select-ios, .datetime-ios{
+        color: #999;
+    }
+    .label-ios[stacked]{
+        color: #222;
+        font-weight: 500;
+        text-transform: uppercase;
+    }
+    .center{
+        padding: 3rem;
+        background: #f3f3f3;
+    }
+    .center img {
+        height: 80px;
+        width: 80px;
+    }
+}

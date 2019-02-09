@@ -1,0 +1,26 @@
+<ion-content>
+  <div class="app-icon">
+    <ion-icon name="ios-chatbubbles-outline" ></ion-icon>
+    <h4>CREATE ACCOUNT</h4>
+  </div>
+  <form [formGroup]="emailPasswordForm" padding>
+  <ion-list no-lines>
+    <ion-item>
+      <ion-input type="text" formControlName="fullname" placeholder="Fullname"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" formControlName="username" placeholder="Username"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" formControlName="email" placeholder="Email Address"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="password" formControlName="password" placeholder="Password"></ion-input>
+    </ion-item>
+    <div padding>
+        <button ion-button block color="primary" (click)="register()" color="dark" [disabled]="!emailPasswordForm.valid">Register Now</button>
+    </div>
+    <button ion-button block clear color="dark" (click)="closeModel()">cancel</button>
+  </ion-list>
+  </form>
+</ion-content>

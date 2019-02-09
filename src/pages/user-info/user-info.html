@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar color="white">
+    <ion-title *ngIf="user"></ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <!-- User Info -->
+  <div *ngIf="user">
+    <ion-row style="background:#f3f3f3" padding>
+      <ion-col col-8>
+        <h4 style="margin:0">{{user.name}}</h4>
+        <p style="color:#aaa;margin:0">@{{user.username}}</p>
+        <p style="color:#444">{{user.description}}</p>
+        <div style="border-top: 1px solid #ececec; padding: 10px;">
+          <!-- Show actions based on the status of the user in relation to the current logged in user. -->
+          <div *ngIf="friendRequests && friendRequests.indexOf(user.$key) > -1">
+            <p class="info">Sent you a friend request.</p>
+            <button ion-button small color="cancelrequest" tappable (click)="rejectFriendRequest()">
+              Decline
+            </button>
+            <button ion-button small color="acceptrequest" tappable (click)="acceptFriendRequest()">
+              Accept
+            </button>
+          </div>
+          <div *ngIf="requestsSent && requestsSent.indexOf(user.$key) > -1">
+            <button ion-button small color="cancelrequest" tappable (click)="cancelFriendRequest()">Cancel Request</button>
+          </div>
+          <div *ngIf="canAdd()">
+            <button ion-button small color="sendrequest" tappable (click)="sendFriendRequest()">Add Friend</button>
+          </div>
+          <div *ngIf="friends && friends.indexOf(user.$key) > -1">
+            <button ion-button small color="sendrequest" tappable (click)="sendMessage()">Start Chat</button>
+            <button ion-button small color="cancelrequest" tappable (click)="block()">Block User</button>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col col-4 class="center">
+        <img src="{{user.img}}" tappable (click)="enlargeImage(user.img)" onError="this.src='./assets/images/default-dp.png'" style="border-radius: 100%">
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>

@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-navbar color="white">
+    <ion-title>Profile</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="user">
+    <div class="center">
+      <img src="{{user.img}}" style="border-radius: 100%;" tappable (click)="setPhoto()" onError="this.src='./assets/images/default-dp.png'">
+    </div>
+
+    <ion-list padding no-lines style="background: transparent">
+      <ion-item>
+        <ion-label stacked>Fullname</ion-label>
+        <ion-input type="text" [(ngModel)]="user.name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Username</ion-label>
+        <ion-input type="text" [(ngModel)]="user.username"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Bio</ion-label>
+        <ion-textarea [(ngModel)]="user.description"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Email</ion-label>
+        <ion-input type="text" [(ngModel)]="user.email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Gender</ion-label>
+        <ion-select [(ngModel)]="user.gender">
+          <ion-option value="male">Male</ion-option>
+          <ion-option value="female">Female</ion-option>
+          <ion-option value="transgender">TransGender</ion-option>
+          <ion-option value="none">None</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Date Of Birth</ion-label>
+        <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="DD MMM YYYY" [(ngModel)]="user.dob"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Location</ion-label>
+        <ion-input type="text" id="txtHome" [(ngModel)]="user.location" (input)="search($event)"></ion-input>
+      </ion-item>
+      <div style="padding:10px">
+        <button ion-button block (click)="save()">Save Changes</button>
+      </div>
+    </ion-list>
+    <ion-item-divider>Other Settings</ion-item-divider>
+    <ion-list no-lines padding>
+
+      <ion-item>
+        <ion-label>Enable Public Visibility</ion-label>
+        <ion-toggle item-right [(ngModel)]="user.publicVisibility" (ionChange)="changeVisibility()"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Show Online</ion-label>
+        <ion-toggle item-right [(ngModel)]="showOnline" (ionChange)="changeStatus()"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Enable Notification</ion-label>
+        <ion-toggle item-right [(ngModel)]="isPushEnabled" [disabled]="isBrowser" (ionChange)="changeNotification()"></ion-toggle>
+      </ion-item>
+      <ion-item (click)="showBlockedList()">
+        <h2>Blocked List</h2>
+        <ion-icon item-right name="arrow-forward"></ion-icon>
+      </ion-item>
+      <ion-item tappable (click)="setPassword()" *ngIf="user && user.provider == 'Email'">
+        Update Password
+      </ion-item>
+      <ion-item tappable (click)="logout()">Logout</ion-item>
+      <ion-item tappable (click)="deleteAccount()" style="color:#F44336">
+        Delete Account
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>
